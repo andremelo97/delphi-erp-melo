@@ -1,0 +1,13 @@
+inherited FormCadastroCidade: TFormCadastroCidade
+  Caption = 'Cadastro de cidades'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited fdQryCadastro: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_CIDADE_ID'
+    UpdateOptions.AutoIncFields = 'ID_CIDADE'
+    SQL.Strings = (
+      'SELECT * FROM CIDADE;')
+  end
+end

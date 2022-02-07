@@ -1,0 +1,23 @@
+object dmDados: TdmDados
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 245
+  Width = 477
+  object fdConexao: TFDConnection
+    Params.Strings = (
+      
+        'Database=C:\Users\Andre Melo\OneDrive\Documents\Cursos\DELPHI\Ap' +
+        'renda a criar um sistema Delphi do inicio ao fim\projeto1\dados\' +
+        'DADOS.FDB'
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'Protocol=TCPIP'
+      'Server=localhost'
+      'Port=3050'
+      'CharacterSet=UTF8'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 336
+    Top = 128
+  end
+end

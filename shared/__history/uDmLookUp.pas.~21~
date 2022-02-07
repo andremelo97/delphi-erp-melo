@@ -1,0 +1,54 @@
+unit uDmLookUp;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, uDmDados, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
+
+type
+  TLookup = class(TDataModule)
+    fdQryEstados: TFDQuery;
+    fdTransaction: TFDTransaction;
+    dsEstados: TDataSource;
+    fdQryCidades: TFDQuery;
+    dsCidades: TDataSource;
+    fdQryFornecedores: TFDQuery;
+    dsFornecedores: TDataSource;
+    fdQryClientes: TFDQuery;
+    dsClientes: TDataSource;
+    fdQryClientesID_CLIENTE: TIntegerField;
+    fdQryClientesRAZAO_SOCIAL: TWideStringField;
+    fdQryClientesFANTASIA: TWideStringField;
+    fdQryClientesCPF_CNPJ: TWideStringField;
+    fdQryClientesTIPO_FJ: TWideStringField;
+    fdQryClientesNOME: TWideStringField;
+    fdQryClientesEMAIL: TWideStringField;
+    fdQryClientesSITE: TWideStringField;
+    fdQryClientesENDERECO: TWideStringField;
+    fdQryClientesCOMPLEMENTO: TWideStringField;
+    fdQryClientesNUMERO: TWideStringField;
+    fdQryClientesBAIRRO: TWideStringField;
+    fdQryClientesIE: TWideStringField;
+    fdQryClientesIM: TWideStringField;
+    fdQryClientesDT_EXCLUIDO: TDateField;
+    fdQryClientesID_CIDADE: TIntegerField;
+    fdQryClientesID_ESTADO: TIntegerField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Lookup: TLookup;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

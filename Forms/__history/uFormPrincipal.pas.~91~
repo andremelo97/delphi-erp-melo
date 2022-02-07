@@ -1,0 +1,145 @@
+unit uFormPrincipal;
+
+interface
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, AdvToolBar, AdvToolBarStylers, AdvPreviewMenu,
+  AdvPreviewMenuStylers, AdvShapeButton, AdvOfficeStatusBar,
+  AdvOfficeStatusBarStylers, AdvGlowButton, uFormCadastroCidade,
+  uFormCadastroCliente, uFormCadastroEstado, uFormFiltroClientes,
+  uFormCadastroFornecedor, uFormFiltroPai, uFormFiltroFornecedores,
+  uFormFiltroProdutos, uFormCadastroProduto, uFormCadastroVenda, uBiblioteca,
+  uFormFiltroVendas, uFormConfigBanco;
+
+type
+  TFormPrincipal = class(TAdvToolBarForm)
+    AdvToolBarPager1: TAdvToolBarPager;
+    AdvPage1: TAdvPage;
+    AdvToolBarOfficeStyler1: TAdvToolBarOfficeStyler;
+    AdvToolBar1: TAdvToolBar;
+    AdvPreviewMenu1: TAdvPreviewMenu;
+    AdvPreviewMenuOfficeStyler1: TAdvPreviewMenuOfficeStyler;
+    AdvOfficeStatusBar1: TAdvOfficeStatusBar;
+    AdvOfficeStatusBarOfficeStyler1: TAdvOfficeStatusBarOfficeStyler;
+    AdvQuickAccessToolBar1: TAdvQuickAccessToolBar;
+    AdvShapeButton1: TAdvShapeButton;
+    AdvPage2: TAdvPage;
+    AdvPage3: TAdvPage;
+    btnCadastroCliente: TAdvGlowButton;
+    btnCadastroEstado: TAdvGlowButton;
+    btnCadastroFornecedor: TAdvGlowButton;
+    AdvToolBarSeparator2: TAdvToolBarSeparator;
+    AdvToolBarSeparator3: TAdvToolBarSeparator;
+    AdvPage4: TAdvPage;
+    AdvToolBar3: TAdvToolBar;
+    btnBuscaClientes: TAdvGlowButton;
+    btnCadastroCidade: TAdvGlowButton;
+    AdvToolBarSeparator1: TAdvToolBarSeparator;
+    btnBuscaFornecedores: TAdvGlowButton;
+    AdvToolBarSeparator4: TAdvToolBarSeparator;
+    AdvToolBarSeparator5: TAdvToolBarSeparator;
+    AdvToolBarSeparator6: TAdvToolBarSeparator;
+    AdvToolBarSeparator7: TAdvToolBarSeparator;
+    btnBuscaProdutos: TAdvGlowButton;
+    btnCadastroProduto: TAdvGlowButton;
+    AdvToolBar4: TAdvToolBar;
+    AdvToolBarSeparator8: TAdvToolBarSeparator;
+    AdvToolBarSeparator9: TAdvToolBarSeparator;
+    btnLancVendas: TAdvGlowButton;
+    AdvGlowButton3: TAdvGlowButton;
+    AdvGlowButton4: TAdvGlowButton;
+    AdvToolBar5: TAdvToolBar;
+    AdvToolBarSeparator10: TAdvToolBarSeparator;
+    AdvToolBarSeparator11: TAdvToolBarSeparator;
+    btnBuscaVendas: TAdvGlowButton;
+    AdvGlowButton2: TAdvGlowButton;
+    AdvGlowButton5: TAdvGlowButton;
+    AdvToolBar2: TAdvToolBar;
+    AdvToolBarSeparator12: TAdvToolBarSeparator;
+    AdvToolBarSeparator13: TAdvToolBarSeparator;
+    AdvGlowButton1: TAdvGlowButton;
+    btnConfigINI: TAdvGlowButton;
+    AdvGlowButton7: TAdvGlowButton;
+    procedure btnCadastroClienteClick(Sender: TObject);
+    procedure btnCadastroEstadoClick(Sender: TObject);
+    procedure btnCadastroFornecedorClick(Sender: TObject);
+    procedure btnBuscaClientesClick(Sender: TObject);
+    procedure btnBuscaFornecedoresClick(Sender: TObject);
+    procedure btnBuscaProdutosClick(Sender: TObject);
+    procedure btnCadastroProdutoClick(Sender: TObject);
+    procedure btnLancVendasClick(Sender: TObject);
+    procedure btnCadastroCidadeClick(Sender: TObject);
+    procedure btnBuscaVendasClick(Sender: TObject);
+    procedure btnConfigINIClick(Sender: TObject);
+  private
+    { Private declarations }
+  protected
+    { Protected declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPrincipal: TFormPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+
+procedure TFormPrincipal.btnCadastroCidadeClick(Sender: TObject);
+begin
+  ShowModalForm(TFormCadastroCidade, FormCadastroCidade);
+end;
+
+procedure TFormPrincipal.btnCadastroClienteClick(Sender: TObject);
+begin
+  ShowModalForm(TFormCadastroCliente, FormCadastroCliente);
+end;
+
+procedure TFormPrincipal.btnCadastroEstadoClick(Sender: TObject);
+begin
+  ShowModalForm(TFormCadastroEstado, FormCadastroEstado);
+end;
+
+procedure TFormPrincipal.btnBuscaClientesClick(Sender: TObject);
+begin
+  ShowForm(TFormFiltroClientes, FormFiltroClientes);
+end;
+
+procedure TFormPrincipal.btnBuscaFornecedoresClick(Sender: TObject);
+begin
+  ShowForm(TFormFiltroFornecedores, FormFiltroFornecedores);
+end;
+
+procedure TFormPrincipal.btnBuscaProdutosClick(Sender: TObject);
+begin
+  ShowForm(TFormFiltroProdutos, FormFiltroProdutos);
+end;
+
+procedure TFormPrincipal.btnBuscaVendasClick(Sender: TObject);
+begin
+  ShowForm(TFormFiltroVendas, FormFiltroVendas);
+end;
+
+procedure TFormPrincipal.btnCadastroFornecedorClick(Sender: TObject);
+begin
+  ShowModalForm(TFormCadastroFornecedor, FormCadastroFornecedor);
+end;
+
+procedure TFormPrincipal.btnCadastroProdutoClick(Sender: TObject);
+begin
+  ShowModalForm(TFormCadastroProduto, FormCadastroProduto);
+end;
+
+procedure TFormPrincipal.btnConfigINIClick(Sender: TObject);
+begin
+  ShowForm(TFormConfigBanco, FormFiltroVendas);
+end;
+
+procedure TFormPrincipal.btnLancVendasClick(Sender: TObject);
+begin
+  ShowModalForm(TFormCadastroVenda, FormCadastroVenda);
+end;
+
+end.

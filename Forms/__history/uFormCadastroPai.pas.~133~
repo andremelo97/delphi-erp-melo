@@ -1,0 +1,231 @@
+unit uFormCadastroPai;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, Data.DB,
+  FireDAC.Comp.DataSet, uBiblioteca;
+
+Type
+  TFormCadastroPai = class(TForm)
+    pnCabecalho: TPanel;
+    btnNovo: TBitBtn;
+    btnGravar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnExcluir: TBitBtn;
+    fdQryCadastro: TFDQuery;
+    fdUpdCadastro: TFDUpdateSQL;
+    fdTransaction: TFDTransaction;
+    dsCadastro: TDataSource;
+    Panel1: TPanel;
+    btnSair: TButton;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    fdQryCodigo: TFDQuery;
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+  private
+    { Private declarations }
+    function GetTableName(pSQL: string): string;
+    procedure SetNewSql(pCodigo: integer);
+  public
+    { Public declarations }
+    vSqlOriginal: string;
+    procedure SetRecord(pCodigo: integer; pTipo: TNav);
+  end;
+
+var
+  FormCadastroPai: TFormCadastroPai;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCadastroPai.btnCancelarClick(Sender: TObject);
+begin
+  if fdQryCadastro.State in [dsEdit, dsInsert] then
+  begin
+    fdQryCadastro.Cancel;
+    fdTransaction.StartTransaction;
+    fdTransaction.RollbackRetaining
+  end;
+
+end;
+
+procedure TFormCadastroPai.btnExcluirClick(Sender: TObject);
+begin
+  fdQryCadastro.Edit;
+  fdQryCadastro.FieldByName('DT_EXCLUIDO').AsDateTime := Date;
+  fdTransaction.StartTransaction;
+  fdQryCadastro.Post;
+  fdTransaction.CommitRetaining;
+
+  ShowMessage('Cadastrado excluído com sucesso.');
+end;
+
+procedure TFormCadastroPai.btnGravarClick(Sender: TObject);
+begin
+  if fdQryCadastro.State in [dsEdit, dsInsert] then
+  begin
+    fdTransaction.StartTransaction;
+    fdQryCadastro.Post;
+    fdTransaction.CommitRetaining
+  end;
+  ShowMessage('Cadastrado realizado com sucesso.');
+end;
+
+procedure TFormCadastroPai.btnNovoClick(Sender: TObject);
+begin
+  if not fdQryCadastro.Active then
+  begin
+    Self.SetRecord(0, tNil);
+  end;
+
+  if not (fdQryCadastro.State in [dsEdit, dsInsert]) then
+    fdQryCadastro.Insert;
+end;
+
+procedure TFormCadastroPai.btnSairClick(Sender: TObject);
+begin
+  Self.Close;
+end;
+
+procedure TFormCadastroPai.FormCreate(Sender: TObject);
+begin
+  vSqlOriginal := fdQryCadastro.SQL.Text;
+end;
+
+function TFormCadastroPai.GetTableName(pSQL: string): string;
+var
+  vSql: TStringList;
+begin
+  vSql := TStringList.Create;
+  try
+    vSql.Delimiter := ' ';
+    vSql.StrictDelimiter := True;
+
+    vSql.DelimitedText := Copy (pSql, Pos('FROM', UpperCase(pSql)), Length(pSQL));
+
+    Result := Trim(vSql.Strings[1]);
+  finally
+    vSql.Free;
+  end;
+
+end;
+
+procedure TFormCadastroPai.SetNewSql(pCodigo: integer);
+var
+  vNewSql: string;
+begin
+  fdQryCadastro.Close;
+  fdQryCadastro.SQL.Clear;
+
+  vNewSql := 'SELECT * FROM (' + vSqlOriginal + ') WHERE ID_' +
+  GetTableName(vSqlOriginal) + ' = :ID_' + GetTableName(vSqlOriginal);
+
+  fdQryCadastro.SQL.Text := vNewSql;
+  fdQryCadastro.ParamByName('ID_' + GetTableName(vSqlOriginal)).AsInteger := pCodigo;
+  fdQryCadastro.Open();
+end;
+
+procedure TFormCadastroPai.SetRecord(pCodigo: integer; pTipo: TNav);
+var
+  vID: string;
+  vCodigo: Integer;
+begin
+  vID := 'ID_' + GetTableName(vSqlOriginal);
+
+  if pCodigo > 0 then
+    SetNewSql(pCodigo)
+  else if pTipo = tFirst then
+  begin
+    fdQryCodigo.Close;
+    fdQryCodigo.SQL.Clear;
+    fdQryCodigo.SQL.Add('SELECT MIN(' + vID + ') AS ID FROM ' + GetTableName(vSqlOriginal));
+    fdQryCodigo.Open();
+
+    vCodigo := fdQryCodigo.FieldByName('ID').AsInteger;
+
+    SetNewSql(vCodigo);
+  end
+  else if pTipo = tLast then
+  begin
+    fdQryCodigo.Close;
+    fdQryCodigo.SQL.Clear;
+    fdQryCodigo.SQL.Add('SELECT MAX(' + vID + ') AS ID FROM ' + GetTableName(vSqlOriginal));
+    fdQryCodigo.Open();
+
+    vCodigo := fdQryCodigo.FieldByName('ID').AsInteger;
+
+    SetNewSql(vCodigo);
+  end
+  else if pTipo = tPrior then       
+  begin
+    vCodigo := fdQryCadastro.FieldByName(vID).AsInteger;
+
+    fdQryCodigo.Close;
+    fdQryCodigo.SQL.Clear;
+    fdQryCodigo.SQL.Add('SELECT MAX(' + vID + ') AS ID FROM ' +
+    GetTableName(vSqlOriginal) + ' WHERE ' + vID + ' < ' + IntToStr(vCodigo));
+    fdQryCodigo.Open();
+
+    vCodigo := fdQryCodigo.FieldByName('ID').AsInteger;
+
+    SetNewSql(vCodigo);
+  end
+  else if pTipo = tNext then
+  begin
+    vCodigo := fdQryCadastro.FieldByName(vID).AsInteger;
+
+    fdQryCodigo.Close;
+    fdQryCodigo.SQL.Clear;
+    fdQryCodigo.SQL.Add('SELECT MIN(' + vID + ') AS ID FROM ' +
+    GetTableName(vSqlOriginal) + ' WHERE ' + vID + ' > ' + IntToStr(vCodigo));
+    fdQryCodigo.Open();
+
+    vCodigo := fdQryCodigo.FieldByName('ID').AsInteger;
+
+    SetNewSql(vCodigo);
+  end
+  else if pTipo = tNil then
+  begin
+    SetNewSql(0);
+  end;
+
+end;
+
+procedure TFormCadastroPai.SpeedButton1Click(Sender: TObject);
+begin
+  SetRecord(0, tFirst);
+end;
+
+procedure TFormCadastroPai.SpeedButton2Click(Sender: TObject);
+begin
+  SetRecord(0, tPrior);
+end;
+
+procedure TFormCadastroPai.SpeedButton3Click(Sender: TObject);
+begin
+  SetRecord(0, tNext);
+end;
+
+procedure TFormCadastroPai.SpeedButton4Click(Sender: TObject);
+begin
+  SetRecord(0, tLast);
+end;
+
+end.

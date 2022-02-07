@@ -1,0 +1,62 @@
+inherited FormFiltroUsuario: TFormFiltroUsuario
+  Caption = 'Buscar usu'#225'rios'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    inherited Label1: TLabel
+      Width = 27
+      Caption = 'Nome'
+      ExplicitWidth = 27
+    end
+    inherited edtFiltro: TEdit
+      Width = 200
+      ExplicitWidth = 200
+    end
+    inherited btnFiltro: TButton
+      Left = 215
+      Top = 31
+      Caption = 'Filtrar'
+      OnClick = btnFiltroClick
+      ExplicitLeft = 215
+      ExplicitTop = 31
+    end
+    object btnAbrirCadastro: TButton
+      Left = 377
+      Top = 31
+      Width = 88
+      Height = 21
+      Caption = 'Abrir Cadastro'
+      TabOrder = 3
+    end
+    object btnNovo: TButton
+      Left = 296
+      Top = 31
+      Width = 75
+      Height = 21
+      Caption = 'Novo'
+      TabOrder = 4
+    end
+  end
+  inherited fdQryFiltro: TFDQuery
+    SQL.Strings = (
+      'SELECT U.NOME,'
+      #9'   U.ID_USUARIO,'
+      #9'   U.LOGIN'
+      'FROM USUARIO U')
+    object fdQryFiltroNOME: TWideStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Size = 40
+    end
+    object fdQryFiltroID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      Origin = 'ID_USUARIO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryFiltroLOGIN: TWideStringField
+      FieldName = 'LOGIN'
+      Origin = 'LOGIN'
+    end
+  end
+end

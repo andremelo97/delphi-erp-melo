@@ -1,0 +1,143 @@
+object Lookup: TLookup
+  OldCreateOrder = False
+  Height = 255
+  Width = 568
+  object fdQryEstados: TFDQuery
+    Connection = dmDados.fdConexao
+    Transaction = fdTransaction
+    SQL.Strings = (
+      'SELECT * FROM ESTADO;')
+    Left = 200
+    Top = 80
+  end
+  object fdTransaction: TFDTransaction
+    Connection = dmDados.fdConexao
+    Left = 32
+    Top = 16
+  end
+  object dsEstados: TDataSource
+    DataSet = fdQryEstados
+    Left = 200
+    Top = 16
+  end
+  object fdQryCidades: TFDQuery
+    Connection = dmDados.fdConexao
+    Transaction = fdTransaction
+    SQL.Strings = (
+      'SELECT * FROM CIDADE;')
+    Left = 128
+    Top = 80
+  end
+  object dsCidades: TDataSource
+    DataSet = fdQryCidades
+    Left = 136
+    Top = 16
+  end
+  object fdQryFornecedores: TFDQuery
+    Connection = dmDados.fdConexao
+    Transaction = fdTransaction
+    SQL.Strings = (
+      'SELECT * FROM FORNECEDOR;')
+    Left = 288
+    Top = 80
+  end
+  object dsFornecedores: TDataSource
+    DataSet = fdQryFornecedores
+    Left = 288
+    Top = 16
+  end
+  object fdQryClientes: TFDQuery
+    Connection = dmDados.fdConexao
+    Transaction = fdTransaction
+    SQL.Strings = (
+      'SELECT * FROM CLIENTE')
+    Left = 376
+    Top = 80
+    object fdQryClientesID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryClientesRAZAO_SOCIAL: TWideStringField
+      FieldName = 'RAZAO_SOCIAL'
+      Origin = 'RAZAO_SOCIAL'
+      Size = 80
+    end
+    object fdQryClientesFANTASIA: TWideStringField
+      FieldName = 'FANTASIA'
+      Origin = 'FANTASIA'
+      Size = 80
+    end
+    object fdQryClientesCPF_CNPJ: TWideStringField
+      FieldName = 'CPF_CNPJ'
+      Origin = 'CPF_CNPJ'
+    end
+    object fdQryClientesTIPO_FJ: TWideStringField
+      FieldName = 'TIPO_FJ'
+      Origin = 'TIPO_FJ'
+      Size = 1
+    end
+    object fdQryClientesNOME: TWideStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Size = 80
+    end
+    object fdQryClientesEMAIL: TWideStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 255
+    end
+    object fdQryClientesSITE: TWideStringField
+      FieldName = 'SITE'
+      Origin = 'SITE'
+      Size = 255
+    end
+    object fdQryClientesENDERECO: TWideStringField
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      Size = 80
+    end
+    object fdQryClientesCOMPLEMENTO: TWideStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 40
+    end
+    object fdQryClientesNUMERO: TWideStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+    end
+    object fdQryClientesBAIRRO: TWideStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 40
+    end
+    object fdQryClientesIE: TWideStringField
+      FieldName = 'IE'
+      Origin = 'IE'
+      Size = 30
+    end
+    object fdQryClientesIM: TWideStringField
+      FieldName = 'IM'
+      Origin = 'IM'
+      Size = 30
+    end
+    object fdQryClientesDT_EXCLUIDO: TDateField
+      FieldName = 'DT_EXCLUIDO'
+      Origin = 'DT_EXCLUIDO'
+    end
+    object fdQryClientesID_CIDADE: TIntegerField
+      FieldName = 'ID_CIDADE'
+      Origin = 'ID_CIDADE'
+    end
+    object fdQryClientesID_ESTADO: TIntegerField
+      FieldName = 'ID_ESTADO'
+      Origin = 'ID_ESTADO'
+    end
+  end
+  object dsClientes: TDataSource
+    DataSet = fdQryClientes
+    Left = 376
+    Top = 16
+  end
+end

@@ -1,0 +1,149 @@
+object FormCadastroPai: TFormCadastroPai
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'Form Cadastro Pai'
+  ClientHeight = 331
+  ClientWidth = 691
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnCabecalho: TPanel
+    Left = 0
+    Top = 0
+    Width = 691
+    Height = 41
+    Align = alTop
+    TabOrder = 0
+    object SpeedButton1: TSpeedButton
+      Left = 348
+      Top = 13
+      Width = 23
+      Height = 22
+      Hint = 'Primeiro registro'
+      Caption = '<<'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 377
+      Top = 13
+      Width = 23
+      Height = 22
+      Hint = 'Registro anterior'
+      Caption = '<'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object SpeedButton3: TSpeedButton
+      Left = 406
+      Top = 13
+      Width = 23
+      Height = 22
+      Hint = 'Pr'#243'ximo registro'
+      Caption = '>'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object SpeedButton4: TSpeedButton
+      Left = 435
+      Top = 13
+      Width = 23
+      Height = 22
+      Hint = #218'ltimo registro'
+      Caption = '>>'
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object btnNovo: TBitBtn
+      Left = 0
+      Top = 0
+      Width = 81
+      Height = 35
+      Caption = 'Novo'
+      TabOrder = 0
+      OnClick = btnNovoClick
+    end
+    object btnGravar: TBitBtn
+      Left = 87
+      Top = 0
+      Width = 81
+      Height = 35
+      Caption = 'Gravar'
+      TabOrder = 1
+      OnClick = btnGravarClick
+    end
+    object btnCancelar: TBitBtn
+      Left = 174
+      Top = 0
+      Width = 81
+      Height = 35
+      Caption = 'Cancelar'
+      TabOrder = 2
+      OnClick = btnCancelarClick
+    end
+    object btnExcluir: TBitBtn
+      Left = 261
+      Top = 0
+      Width = 81
+      Height = 35
+      Caption = 'Excluir'
+      TabOrder = 3
+      OnClick = btnExcluirClick
+    end
+    object Panel1: TPanel
+      Left = 572
+      Top = 1
+      Width = 118
+      Height = 39
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 4
+      object btnSair: TButton
+        Left = 45
+        Top = 0
+        Width = 73
+        Height = 39
+        Align = alRight
+        Caption = 'Sair'
+        TabOrder = 0
+        OnClick = btnSairClick
+      end
+    end
+  end
+  object fdQryCadastro: TFDQuery
+    Connection = dmDados.fdConexao
+    Transaction = fdTransaction
+    UpdateObject = fdUpdCadastro
+    Left = 544
+    Top = 160
+  end
+  object fdUpdCadastro: TFDUpdateSQL
+    Connection = dmDados.fdConexao
+    Left = 544
+    Top = 208
+  end
+  object fdTransaction: TFDTransaction
+    Connection = dmDados.fdConexao
+    Left = 544
+    Top = 256
+  end
+  object dsCadastro: TDataSource
+    DataSet = fdQryCadastro
+    Left = 544
+    Top = 112
+  end
+  object fdQryCodigo: TFDQuery
+    Connection = dmDados.fdConexao
+    Left = 416
+    Top = 200
+  end
+end

@@ -1,0 +1,22 @@
+program prjProjeto1;
+
+uses
+  Vcl.Forms,
+  uFormMain in 'Forms\uFormMain.pas' {FormMain},
+  uBiblioteca in 'Classes\uBiblioteca.pas',
+  uFormConfigBanco in 'Forms\uFormConfigBanco.pas' {FormConfigBanco},
+  uFormCadastroPai in 'Forms\uFormCadastroPai.pas' {FormCadastroPai},
+  uFormCadastroCliente in 'Forms\uFormCadastroCliente.pas' {FormCadastroCliente},
+  uDmDados in 'Forms\uDmDados.pas' {DataModule1: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFormMain, FormMain);
+  Application.CreateForm(TFormConfigBanco, FormConfigBanco);
+  Application.CreateForm(TFormCadastroCliente, FormCadastroCliente);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

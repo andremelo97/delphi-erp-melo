@@ -1,0 +1,5 @@
+inherited FormCadastroCidade: TFormCadastroCidade
+  Caption = 'Cadastro de cidades'
+  PixelsPerInch = 96
+  TextHeight = 13
+end
